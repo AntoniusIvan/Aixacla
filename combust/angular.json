@@ -67,6 +67,12 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "AngularCliCodeFlowPkce:build",
+            "sslKey": "certs/dev_localhost.key",
+            "sslCert": "certs/dev_localhost.pem",
+            "port": 4200
+          },
           "configurations": {
             "production": {
               "buildTarget": "combust:build:production"
@@ -75,10 +81,7 @@
               "buildTarget": "combust:build:development"
             }
           },
-          "defaultConfiguration": "development",
-          "options": {
-            "port": 56265
-          }
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"
