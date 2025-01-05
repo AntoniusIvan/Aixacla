@@ -26,6 +26,7 @@ Ensure the following tools are installed:
 
 ---
 
+![alt text](image.png)
 ## Getting Started
 
 Follow these steps to set up and run the project:
