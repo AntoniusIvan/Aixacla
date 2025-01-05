@@ -1,48 +1,64 @@
-<div class="container">
-  <!-- Static navbar -->
-  <nav class="bg-dark mb-4 navbar navbar-dark navbar-expand-md">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a [routerLink]="['/dataeventrecords']" class="navbar-brand">
-          <img src="assets/damienbod.jpg" height="40" style="margin-top:-10px;" />
-        </a>
-      </div>
-      <div class="navbar-collapse collapse" id="navbar">
-        <ul class="mr-auto navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" *ngIf="isAuthenticated" [routerLink]="['/dataeventrecords']">DataEventRecords</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" *ngIf="isAuthenticated" [routerLink]="['/dataeventrecords/create']">Create DataEventRecord</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" *ngIf="!isAuthenticated" (click)="login()">LOGIN</a>
-          </li>
-          <li class="nav-item"><a class="nav-link" *ngIf="isAuthenticated" (click)="logout()">LOGOUT</a></li>
-        </ul>
-      </div>
+<!-- Top Toolbar -->
+<mat-toolbar color="primary">
+  <!-- Menu button for small screens -->
+  <button mat-icon-button (click)="drawer.toggle()" aria-label="Toggle sidenav">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <!-- Logo and Title -->
+  <a mat-button routerLink="/" style="text-decoration: none; color: white;">
+    <img src="assets/logo.png" height="40" style="margin-right: 10px;" />
+    Angular Docs
+  </a>
+
+  <!-- Spacer to push the links to the right -->
+  <span class="spacer"></span>
+
+  <!-- Navigation Links -->
+  <button mat-button>Docs</button>
+  <button mat-button>Community</button>
+  <button mat-button>Blog</button>
+  <!-- Login/Logout Buttons -->
+  <ng-container *ngIf="!isAuthenticated">
+    <button mat-button (click)="login()" style="color:white;">LOGIN</button>
+  </ng-container>
+
+  <ng-container *ngIf="isAuthenticated">
+    <button mat-button (click)="logoffAndRevokeTokens()" style="color:white;">LOGOUT</button>
+  </ng-container>
+  <!-- Additional Icons -->
+  <mat-icon>search</mat-icon>
+  <mat-icon>brightness_4</mat-icon>
+  <mat-icon>account_circle</mat-icon>
+</mat-toolbar>
+
+<mat-drawer-container class="drawer-container" autosize>
+  <!-- Sidenav -->
+  <mat-drawer #drawer class="sidenav" mode="side" opened>
+    <mat-nav-list>
+      <!-- Other list items -->
+      <a mat-list-item [routerLink]="['/introduction']">Introduction</a>
+      <a mat-list-item [routerLink]="['/getting-started']">Getting started</a>
+      <a mat-list-item [routerLink]="['/understanding-angular']">Understanding Angular</a>
+
+      <!-- DataEventRecords Links -->
+      <a mat-list-item [routerLink]="['/dataeventrecords']">DataEventRecords</a>
+      <a mat-list-item [routerLink]="['/dataeventrecords/create']">Create DataEventRecord</a>
+
+      <!-- Additional list items -->
+      <a mat-list-item [routerLink]="['/counter']">Counter</a>
+      <a mat-list-item [routerLink]="['/updates-releases']">Updates and releases</a>
+      <a mat-list-item [routerLink]="['/home']">Home</a>
+    </mat-nav-list>
+  </mat-drawer>
+
+
+  <!-- Main content -->
+  <mat-drawer-content>
+    <!-- Main content area -->
+    <div class="content">
+      <!-- This is where the routed components will be injected -->
+      <router-outlet></router-outlet>
     </div>
-  </nav>
-
-  <!-- Additional Navigation Bar -->
-  <nav>
-    <ul>
-      <li><a routerLink="/about-us">About Us</a></li>
-      <li><a routerLink="/counter">Counter Page</a></li>
-    </ul>
-  </nav>
-
-  <!-- Authentication and User Data -->
-  <div *ngIf="!isAuthenticated">
-    <button (click)="login()">Login</button>
-  </div>
-
-  <div *ngIf="isAuthenticated">
-    <button (click)="logout()">Logout</button>
-    <p>Welcome, {{ userData?.name }}</p>
-    <pre>{{ userData | json }}</pre>
-  </div>
-
-  <!-- Router Outlet for displaying routed components -->
-  <router-outlet></router-outlet>
-</div>
+  </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,5 @@
+2025-01-05 21:00:23.806 +07:00 [INF] User profile is available. Using 'C:\Users\anton\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-01-05 21:00:24.678 +07:00 [INF] Now listening on: https://localhost:44390
+2025-01-05 21:00:24.720 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-01-05 21:00:24.721 +07:00 [INF] Hosting environment: Development
+2025-01-05 21:00:24.721 +07:00 [INF] Content root path: E:\NodeJS004Aspire\Aixacla\ResourceServer

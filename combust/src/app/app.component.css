@@ -1,27 +1,31 @@
-nav {
-  background-color: #333;
-  padding: 10px;
+.drawer-container {
+  height: 100vh;
 }
 
-  nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+.sidenav {
+  width: 240px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.content {
+  padding: 16px;
+}
+
+mat-toolbar-row, mat-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+  mat-toolbar a {
+    color: white;
+    font-weight: bold;
   }
 
-    nav ul li {
-      float: left;
-    }
-
-      nav ul li a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-      }
-
-        nav ul li a:hover {
-          background-color: #111;
-        }
+mat-nav-list a {
+  color: black;
+  padding: 10px;
+}

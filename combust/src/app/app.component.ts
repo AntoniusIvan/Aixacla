@@ -1,36 +1,51 @@
-import { Component, OnInit } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { Component, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
+
 export class AppComponent implements OnInit {
-  title = 'combust';
-  isAuthenticated = false;
-  userData: any;
 
-  constructor(private oidcSecurityService: OidcSecurityService) { }
+    title = '';
+    userData$: Observable<any> = of({});
+    isAuthenticated = false;
 
-  ngOnInit(): void {
-    // Checking authentication status and retrieving user data
-    this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated }) => {
-      this.isAuthenticated = isAuthenticated; // Authentication status
-      if (isAuthenticated) {
-        this.userData = this.oidcSecurityService.getUserData(); // Get user data after authentication
-      }
-    });
+    constructor(private oidcSecurityService: OidcSecurityService) {
+        console.log('AppComponent STARTING');
+    }
 
-  }
+    ngOnInit(): void {
+        this.userData$ = this.oidcSecurityService.userData$;
 
-  login(): void {
-    // Start the login flow
-    this.oidcSecurityService.authorize();
-  }
+        this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated }) => {
+          this.isAuthenticated = isAuthenticated;
+          console.log('app authenticated', isAuthenticated);
+        });
+    }
+    login(): void {
+        console.log('start login');
 
-  logout(): void {
-    // Log the user out and remove tokens
-    this.oidcSecurityService.logoff();
-  }
+        this.oidcSecurityService.authorize();
+    }
+
+    refreshSession(): void {
+        console.log('start refreshSession');
+        this.oidcSecurityService.authorize();
+    }
+
+    logoffAndRevokeTokens(): void {
+        this.oidcSecurityService.logoffAndRevokeTokens().subscribe((result) => console.log(result));
+    }
+
+    revokeRefreshToken(): void {
+        this.oidcSecurityService.revokeRefreshToken().subscribe((result) => console.log(result));
+    }
+
+    revokeAccessToken(): void {
+        this.oidcSecurityService.revokeAccessToken().subscribe((result) => console.log(result));
+    }
 }
